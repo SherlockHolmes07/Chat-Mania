@@ -13,7 +13,15 @@
                     {% csrf_token %}
                  <input type="submit" id="logout-btn" class="btn btn-danger float-right" style="border: none;" value="Logout">
                 </form>
-
-        </div>
+             </div>   
+         </div>     
     </div>
+
+    <div class="btn-Cont d-flex flex-column justify-content-around">  
+        <button id="lbtn" class="btn  btn-success">Create Room</button>
+        <button id="lbtn" class="btn  btn-dark">Joined Rooms</button>
+        <button id="lbtn" class="btn  btn-dark">Your Rooms</button>
+        <button id="lbtn" class="btn  btn-dark">Requests</button>
+    </div>  
+          
 {% endblock %}

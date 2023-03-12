@@ -10,6 +10,11 @@ body{
     padding: 0;
 }
 
+.body{
+    margin: 0;
+    padding: 0;
+}
+
 #logout-btn{
     background-color: #97030A;
     color: #fff;
@@ -30,4 +35,25 @@ body{
     font-size: 20px;
     font-weight: bold;
     opacity: 1;
+}
+
+.btn-Cont{
+    display: flex;
+    /* Add some space between the division and the left side of the page */
+    margin-left: 10px;
+    /* Add some space between the division and the top of the page */
+    margin-top: 10px;
+    width: 200px; 
+    height: 300px;
+    /*border: 1px solid #C9040D;*/
+}
+
+#lbtn{
+   width: 150px;
+   height: 50px;
+   font-size: 18px;
+   font-weight: normal;
+   border-radius: 5px;  
+   margin-top: 60px; 
+   padding: 8px;
 }
