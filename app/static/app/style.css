@@ -1,0 +1,11 @@
+body{
+    background:  linear-gradient(to bottom, rgb(58,54,152)
+    , rgb(110,106,175)  );
+    font-family: 'Open Sans', sans-serif;
+    color: #fff;
+    /*make height cover entire screen*/
+    height: 100vh;
+    /*make width cover entire screen*/
+    margin: 0;
+    padding: 0;
+}
