@@ -66,4 +66,7 @@ def login_view(request):
         # Load login form
         return render(request, "app/login.html")
     
- 
+# Logout
+def logout_view(request):
+    logout(request)
+    return render(request, "app/login.html", {"message": "Logged out."})
