@@ -16,12 +16,30 @@
              </div>   
          </div>     
     </div>
+   
+    <div class="d-flex flex-row">
 
+    <!--Buttons for the page-->
     <div class="btn-Cont d-flex flex-column justify-content-around">  
-        <button id="lbtn" class="btn  btn-success">Create Room</button>
+        <button id="lbtn CreateRoom" class="btn  btn-success">Create Room</button>
         <button id="lbtn" class="btn  btn-dark">Joined Rooms</button>
         <button id="lbtn" class="btn  btn-dark">Your Rooms</button>
-        <button id="lbtn" class="btn  btn-dark">Requests</button>
+        <button id="lbtn" class="btn  btn-dark">Join Requests</button>
     </div>  
-          
+
+     <!--Room Container-->
+     <div class="d-flex flex-row justify-content-around flex-wrap" id="room-cont">
+        {% for room in rooms%}
+        <div class="room p-1">
+                <p><b>Room Name:</b> <i> {{room.name}} </i> </p>
+                <p> <b>Description:</b> {{room.description}} </p>
+              <p class="pt-3 align-bottom"><b>Admin:</b> {{room.admin}} </p>
+              <button id="join-btn" class="btn btn-dark">Join</button>
+        </div>
+        {% endfor %}
+     </div>
+
+    </div>
+
 {% endblock %}
+

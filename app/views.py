@@ -4,12 +4,17 @@ from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
-from django.contrib.auth.models import User
+from .models import User, Room, UserRooms, Message
 # Create your views here.
 
 @login_required(login_url="login")
 def index(request):
-    return render(request, 'app/index.html')
+    # get the list of rooms
+    rooms = Room.objects.all()
+    print(rooms)
+    return render(request, 'app/index.html', {
+        'rooms': rooms
+    })
 
 # Register a new user
 def register_view(request):
@@ -70,3 +75,17 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return render(request, "app/login.html", {"message": "Logged out."})
+
+
+# Create Rooms
+@login_required(login_url="login")
+def create_room(request):
+    # Check of the request is POST
+    if request.method == "POST":
+        name = request.POST["name"] # Get the name of the room
+        description = request.POST["description"] # Get the description of the room
+        # Create the room
+        room = Room(name=name, description=description, admin=request.user)
+        room.save()
+        pass
+        
