@@ -85,3 +85,16 @@ body{
     font-size: 20px;
     font-weight: bold;
 }
+
+#create-form{
+    width: 370px;
+    height: fit-content;
+    align-self: right;
+    margin-left: 360px;
+    background-color: #c0bfbf;
+}
+
+#create-form label{
+    font-size: 18px;
+    font-weight: bold;
+}

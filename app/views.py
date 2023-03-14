@@ -1,3 +1,4 @@
+from django import forms
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -6,6 +7,9 @@ from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from .models import User, Room, UserRooms, Message
 # Create your views here.
+
+
+# Create Room Form
 
 @login_required(login_url="login")
 def index(request):
@@ -79,13 +83,15 @@ def logout_view(request):
 
 # Create Rooms
 @login_required(login_url="login")
-def create_room(request):
+def create(request):
     # Check of the request is POST
     if request.method == "POST":
         name = request.POST["name"] # Get the name of the room
         description = request.POST["description"] # Get the description of the room
+        print(request.user)
         # Create the room
-        room = Room(name=name, description=description, admin=request.user)
-        room.save()
+       # room = Room(name=name, description=description, admin=request.user)
+        #room.save()
         pass
-        
+    else:
+        return render(request, 'app/createroom.html')

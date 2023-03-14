@@ -1,0 +1,67 @@
+{% extends 'app/layout.html' %} {% block body %}
+<!--Title of the page below navbar and at the middle of the frame-->
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 mt-3">
+      <!--Title of the Page -->
+      <h1 class="text-center" style="font-weight: 700">
+        Chat-Mania: Join the Conversation
+      </h1>
+
+      <!--LOG OUT button-->
+      <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <input
+          type="submit"
+          id="logout-btn"
+          class="btn btn-danger float-right"
+          style="border: none"
+          value="Logout"
+        />
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="d-flex flex-row">
+  <!--Buttons for the page-->
+  <div class="btn-Cont d-flex flex-column justify-content-around">
+    <a id="lbtn" href="{% url 'create' %}" class="btn btn-success"
+      >Create Room</a
+    >
+    <button id="lbtn" class="btn btn-dark">Joined Rooms</button>
+    <button id="lbtn" class="btn btn-dark">Your Rooms</button>
+    <button id="lbtn" class="btn btn-dark">Join Requests</button>
+  </div>
+
+  <!--Room Container-->
+  <div >
+    <form action="{% url 'create' %}" method="post" class="form-control" id="create-form">
+        {% csrf_token %}
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          name="name"
+          placeholder="Enter Room Name"
+        />
+      </div>
+      <div class="form-group">
+        <label for="des">Description:</label>
+        <textarea
+          placeholder="Enter Description"
+          name="description"
+          class="form-control"
+          id="des"
+          rows="4"
+        ></textarea>
+      </div>
+      <button type="submit" class="btn btn-success form-control mt-5">Create Room</button>
+    </form>
+  </div>
+
+</div>
+
+{% endblock %}
