@@ -23,6 +23,10 @@
   </div>
 </div>
 
+{% if message %}
+ <div class="alert alert-danger mt-2" style="width: 50%; margin-left: 25%;" role="alert"> {{ message }}</div> 
+ {% endif %}
+
 <div class="d-flex flex-row">
   <!--Buttons for the page-->
   <div class="btn-Cont d-flex flex-column justify-content-around">
@@ -38,26 +42,7 @@
   <div >
     <form action="{% url 'create' %}" method="post" class="form-control" id="create-form">
         {% csrf_token %}
-      <div class="form-group">
-        <label for="name">Name:</label>
-        <input
-          type="text"
-          class="form-control"
-          id="name"
-          name="name"
-          placeholder="Enter Room Name"
-        />
-      </div>
-      <div class="form-group">
-        <label for="des">Description:</label>
-        <textarea
-          placeholder="Enter Description"
-          name="description"
-          class="form-control"
-          id="des"
-          rows="4"
-        ></textarea>
-      </div>
+       {{ CreateRoomForm }}
       <button type="submit" class="btn btn-success form-control mt-5">Create Room</button>
     </form>
   </div>

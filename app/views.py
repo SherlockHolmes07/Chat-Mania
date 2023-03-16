@@ -10,6 +10,10 @@ from .models import User, Room, UserRooms, Message
 
 
 # Create Room Form
+class CreateRoomForm(forms.Form):
+    name = forms.CharField(label="Room Name", max_length=64, required=True, min_length=3,
+    widget=forms.TextInput(attrs={'class': 'form-control mb-3', 'placeholder': 'Room Name'}))
+    description = forms.CharField(label="Description", max_length=256,min_length=5, required=True, widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Description', 'rows': '5'}))
 
 @login_required(login_url="login")
 def index(request):
@@ -86,12 +90,26 @@ def logout_view(request):
 def create(request):
     # Check of the request is POST
     if request.method == "POST":
-        name = request.POST["name"] # Get the name of the room
-        description = request.POST["description"] # Get the description of the room
-        print(request.user)
-        # Create the room
-       # room = Room(name=name, description=description, admin=request.user)
-        #room.save()
-        pass
+        # Get the form data
+        form = CreateRoomForm(request.POST)
+        # Check if the form is valid
+        if form.is_valid():
+            name = form.cleaned_data["name"]
+            description = form.cleaned_data["description"]
+            # Create a new room
+            room = Room(name=name, description=description, admin=request.user)
+            room.save()
+            # Add the user to the room
+            user_room = UserRooms(user=request.user, room=room)
+            user_room.save()
+            # Redirect to the index page
+            return HttpResponseRedirect(reverse("index"))
+        else:
+            return render(request, 'app/createroom.html', {
+                'CreateRoomForm': CreateRoomForm(),
+                'message': 'Invalid form data'
+            })
     else:
-        return render(request, 'app/createroom.html')
+        return render(request, 'app/createroom.html', {
+            'CreateRoomForm': CreateRoomForm()
+        })
