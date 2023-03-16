@@ -27,19 +27,23 @@
         <a id="lbtn" class="btn  btn-dark" href="{% url 'your_rooms' %}" >Your Rooms</a>
         <a id="lbtn" class="btn btn-dark" href="{% url 'join_requests' %}">Join Requests</a>
     </div>  
+
      <!--Room Container-->
-     <div class="d-flex flex-row justify-content-around flex-wrap" id="room-cont">
-        {% for room in rooms%}
-        <div class="room p-1">
-                <p><b>Room Name:</b> <i> {{room.name}} </i> </p>
-                <p> <b>Description:</b> {{room.description}} </p>
-                <p><b>Users:</b> {{room.numberUsers}} </p>
-              <p class="pt-3 align-bottom"><b>Admin:</b> {{room.admin}} </p>
-        </div>
-        {% endfor %}
+     <div class="form-group" style="margin-left: 70px; margin-top: 50px;">
+          {% for request in requests %}
+          <div class="d-flex flex-row mt-3">
+          <div class="alert alert-dark" role="alert" class="form-control" style="width: 600px;">
+            {{request}}
+          </div>
+          <button class="btn btn-success ml-3" style="width: 100px; height: 50px;">Accept</button>
+          <button class="btn btn-danger ml-3" style="width: 100px; height: 50px;">Reject</button>
+          </div>
+          {% endfor %}
      </div>
 
     </div>
 
      
 {% endblock %}
+
+

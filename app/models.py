@@ -47,7 +47,7 @@ class JoinRequests(models.Model):
     admin = models.ForeignKey(User, on_delete=models.CASCADE, related_name="get_admins_requests")
 
     def __str__(self):
-        return f"{self.user.username} requested to join {self.room.name} by {self.admin.username}"
+        return f"{self.user.username} requested to join {self.room.name}"
     
     # make sure that the user can only request to join a room once
     class Meta:

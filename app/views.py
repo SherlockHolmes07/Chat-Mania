@@ -139,4 +139,14 @@ def join_room(request):
         join =  JoinRequests.objects.create(user=request.user, room=room, admin=room.admin) 
         join.save()
         return HttpResponse("Added request to Join Requests", status=200)
-    
+
+
+# Join Requests
+@login_required(login_url="login")
+def join_requests(request):
+    # Get the join requests
+    requests = JoinRequests.objects.filter(admin=request.user)
+    print(requests)
+    return render(request, 'app/joinrequests.html', {
+        'requests': requests
+    })
