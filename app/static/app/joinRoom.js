@@ -14,6 +14,14 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then((response) => {
                 console.log(response);
+                if (response.status == 200) {
+                    //disable the button
+                    button.disabled = true;
+                    button.innerHTML = "Requested";
+                    // add to the buttons class
+                    button.classList.add("disabled");
+
+                }
              })
              .catch((error) => console.log(error));
         }

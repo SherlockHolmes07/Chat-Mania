@@ -36,8 +36,13 @@
                 <p><b>Users:</b> {{room.numberUsers}} </p>
               <p class="pt-3 align-bottom"><b>Admin:</b> {{room.admin}} </p>
               {% if user != room.admin %}
-              <!--Assign room id to the button value of button-->
-              <button id="join-btn" class="btn btn-dark" value="{{room.id}}">Join</button>
+                    <!--Check is the room.name lies in request_list-->
+                    {% if room in x %}
+                        <button id="join-btn" class="btn btn-dark disable" disabled>Requested</button>
+                    {% else %}
+                    <!--Assign room id to the button value of button-->
+                    <button id="join-btn" class="btn btn-dark" value="{{room.id}}">Join</button>
+                    {% endif %}
               {% endif %}
         </div>
         {% endfor %}
