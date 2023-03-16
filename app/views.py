@@ -1,11 +1,12 @@
+import json
 from django import forms
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
-from .models import User, Room, UserRooms, Message
+from .models import User, Room, UserRooms, Message, JoinRequests
 # Create your views here.
 
 
@@ -126,3 +127,16 @@ def your_rooms(request):
     return render(request, 'app/yourrooms.html', {
         'rooms': rooms
     })
+
+
+# Join Room
+@login_required(login_url="login")
+def join_room(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        room_id = data['room']
+        room = Room.objects.get(id=room_id)
+        join =  JoinRequests.objects.create(user=request.user, room=room, admin=room.admin) 
+        join.save()
+        return HttpResponse("Added request to Join Requests", status=200)
+    

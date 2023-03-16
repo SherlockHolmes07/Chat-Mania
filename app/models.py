@@ -38,3 +38,18 @@ class Message(models.Model):
     
     def __str__(self):
         return f"{self.user.username} said {self.message} in {self.room.name}"
+    
+
+class JoinRequests(models.Model):
+    """user(User), room(Room), admin(User)"""
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="get_users_requests")
+    room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name="get_rooms_requests")
+    admin = models.ForeignKey(User, on_delete=models.CASCADE, related_name="get_admins_requests")
+
+    def __str__(self):
+        return f"{self.user.username} requested to join {self.room.name} by {self.admin.username}"
+    
+    # make sure that the user can only request to join a room once
+    class Meta:
+        unique_together = ['user', 'room', 'admin']
+

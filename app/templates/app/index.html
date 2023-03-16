@@ -35,7 +35,10 @@
                 <p> <b>Description:</b> {{room.description}} </p>
                 <p><b>Users:</b> {{room.numberUsers}} </p>
               <p class="pt-3 align-bottom"><b>Admin:</b> {{room.admin}} </p>
-              <button id="join-btn" class="btn btn-dark">Join</button>
+              {% if user != room.admin %}
+              <!--Assign room id to the button value of button-->
+              <button id="join-btn" class="btn btn-dark" value="{{room.id}}">Join</button>
+              {% endif %}
         </div>
         {% endfor %}
      </div>
