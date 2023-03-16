@@ -15,6 +15,7 @@ class CreateRoomForm(forms.Form):
     widget=forms.TextInput(attrs={'class': 'form-control mb-3', 'placeholder': 'Room Name'}))
     description = forms.CharField(label="Description", max_length=256,min_length=5, required=True, widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Description', 'rows': '5'}))
 
+# Index
 @login_required(login_url="login")
 def index(request):
     # get the list of rooms
@@ -105,11 +106,23 @@ def create(request):
             # Redirect to the index page
             return HttpResponseRedirect(reverse("index"))
         else:
-            return render(request, 'app/createroom.html', {
+            # If the form is invalid
+            return render(request, 'app/createroom.html', { # Render the same page with the form data
                 'CreateRoomForm': CreateRoomForm(),
                 'message': 'Invalid form data'
             })
     else:
-        return render(request, 'app/createroom.html', {
+        # If the request is GET
+        return render(request, 'app/createroom.html', { # Render the same page with the form data
             'CreateRoomForm': CreateRoomForm()
         })
+    
+
+# Your Rooms
+@login_required(login_url="login")
+def your_rooms(request):
+   # Get the rooms that the user is admin of
+    rooms = Room.objects.filter(admin=request.user)
+    return render(request, 'app/yourrooms.html', {
+        'rooms': rooms
+    })
