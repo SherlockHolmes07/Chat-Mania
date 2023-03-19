@@ -31,13 +31,16 @@
      <!--Room Container-->
      <div class="form-group" style="margin-left: 70px; margin-top: 50px;">
           {% for request in requests %}
+          <span id="request{{request.id}}">
           <div class="d-flex flex-row mt-3">
           <div class="alert alert-dark" role="alert" class="form-control" style="width: 600px;">
             {{request}}
           </div>
-          <button class="btn btn-success ml-3" style="width: 100px; height: 50px;">Accept</button>
-          <button class="btn btn-danger ml-3" style="width: 100px; height: 50px;">Reject</button>
+          <input type="hidden" id="user{{request.id}}" value="{{request.user.id}}">
+          <button class="btn btn-success ml-3" style="width: 100px; height: 50px;" value="{{request.id}}" id="AcceptRequest">Accept</button>
+          <button class="btn btn-danger ml-3" style="width: 100px; height: 50px;" value="{{request.id}}" id="RejectRequest">Reject</button>
           </div>
+          </span>
           {% endfor %}
      </div>
 

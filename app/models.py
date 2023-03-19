@@ -28,6 +28,8 @@ class UserRooms(models.Model):
     
     def __str__(self):
         return f"{self.user.username} joined {self.room.name}"
+    class Meta:
+        unique_together = ['user', 'room']
     
 class Message(models.Model):
     """user(User), room(Room), message(Text), timestamp(datetime)"""

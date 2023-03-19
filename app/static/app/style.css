@@ -1,11 +1,12 @@
 body{
-    background:  linear-gradient(to bottom, rgb(58,54,152)
-    , rgb(110,106,175)  );
+    background:  linear-gradient(to bottom, rgb(25, 24, 60)
+    , rgb(123, 116, 255)  );
     font-family: 'Open Sans', sans-serif;
     color: #fff;
     /*make height cover entire screen*/
-    height: 100vh;
+    height: fit-content;
     /*make width cover entire screen*/
+    min-height: 100vh;
     margin: 0;
     padding: 0;
 }

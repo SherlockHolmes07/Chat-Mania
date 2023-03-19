@@ -156,3 +156,33 @@ def join_requests(request):
     return render(request, 'app/joinrequests.html', {
         'requests': requests
     })
+
+
+# Accept Request
+@login_required(login_url="login")
+def accept_request(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        request_id = data["requestId"]     
+        Request = JoinRequests.objects.get(id=request_id)
+        if Request.admin.id != request.user.id:
+            return HttpResponse("You are not the admin of this room", status=403)
+        else:
+            user_room = UserRooms(user=Request.user, room=Request.room)
+            user_room.save()
+            Request.delete()
+            return HttpResponse("Accepted request", status=200)
+
+
+# Reject Request
+@login_required(login_url="login")
+def reject_request(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        request_id = data["requestId"]
+        Request = JoinRequests.objects.get(id=request_id)
+        if Request.admin.id != request.user.id:
+            return HttpResponse("You are not the admin of this room", status=403)
+        else:
+            Request.delete()
+            return HttpResponse("Rejected request", status=200)
