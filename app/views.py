@@ -26,10 +26,15 @@ def index(request):
     join_requests = JoinRequests.objects.filter(user=request.user)
     x = [room.room for room in join_requests]
     print(x)
+    # Get the list of rooms that the user has joined
+    user_rooms = UserRooms.objects.filter(user=request.user)
+    y = [room.room for room in user_rooms]
+    print(y)
     return render(request, 'app/index.html', {
         'rooms': rooms,
         'join_requests': join_requests,
         'x': x,
+        'y': y,
     })
 
 # Register a new user
@@ -170,6 +175,9 @@ def accept_request(request):
         else:
             user_room = UserRooms(user=Request.user, room=Request.room)
             user_room.save()
+            room = Room.objects.get(id=Request.room.id)
+            room.numberUsers += 1
+            room.save()
             Request.delete()
             return HttpResponse("Accepted request", status=200)
 
@@ -186,3 +194,14 @@ def reject_request(request):
         else:
             Request.delete()
             return HttpResponse("Rejected request", status=200)
+        
+
+# get joined rooms
+@login_required(login_url="login")
+def joined_rooms(request):
+    # Get the list of rooms that the user has joined
+    user_rooms = UserRooms.objects.filter(user=request.user)
+    rooms = [room.room for room in user_rooms]
+    return render(request, 'app/joined.html', {
+        'rooms': rooms
+    })

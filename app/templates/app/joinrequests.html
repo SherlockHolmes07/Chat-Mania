@@ -23,7 +23,7 @@
     <div class="btn-Cont d-flex flex-column justify-content-around">  
         <a id="lbtn" href="{% url 'create' %}" class="btn  btn-success">Create Room</a>
         <a id="lbtn" href="{% url 'index' %}" class="btn  btn-dark">Home</a>
-        <button id="lbtn" class="btn  btn-dark">Joined Rooms</button>
+        <a id="lbtn" href="{% url 'joined_rooms' %}" class="btn  btn-dark">Joined Rooms</a>
         <a id="lbtn" class="btn  btn-dark" href="{% url 'your_rooms' %}" >Your Rooms</a>
         <a id="lbtn" class="btn btn-dark" href="{% url 'join_requests' %}">Join Requests</a>
     </div>  

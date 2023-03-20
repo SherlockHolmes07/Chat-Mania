@@ -10,6 +10,7 @@ urlpatterns = [
     path('create/', views.create, name='create'),
     path('your_rooms/', views.your_rooms, name='your_rooms'),
     path('requests', views.join_requests, name='join_requests'),
+    path('joinedRooms', views.joined_rooms, name='joined_rooms'),
 
     # API Routes
     path('joinRoom', views.join_room, name='join_room'),
