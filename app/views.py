@@ -205,3 +205,24 @@ def joined_rooms(request):
     return render(request, 'app/joined.html', {
         'rooms': rooms
     })
+
+
+# Room
+@login_required(login_url="login")
+def room(request, room_name):
+    if request.method == "POST":
+        pass
+    else:
+        room = Room.objects.get(name=room_name)
+
+        # Check if the user is in the room
+        user_rooms = UserRooms.objects.filter(user=request.user)
+        rooms = [x.room for x in user_rooms]
+        print(rooms)
+        if room not in rooms and room.admin != request.user:
+            return HttpResponse("You are not in this room", status=403)
+        messages = Message.objects.filter(room=room)
+        return render(request, 'app/room.html', {
+            'room': room,
+            'messages': messages
+        })

@@ -45,6 +45,8 @@
                     <!--Assign room id to the button value of button-->
                     <button id="join-btn" class="btn btn-dark" value="{{room.id}}">Join</button>
                     {% endif %}
+              {% else %}
+              <a id="join-btn" class="btn btn-primary">Go to Room</a>
               {% endif %}
         </div>
         {% endfor %}

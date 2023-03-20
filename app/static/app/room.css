@@ -1,0 +1,20 @@
+body{
+    background-color: #F8F5F3;
+    font-family: 'Open Sans', sans-serif;
+    color: #000000;
+    /*make height cover entire screen*/
+    height: fit-content;
+    /*make width cover entire screen*/
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.body{
+    margin: 0;
+    padding: 0;
+}
+
+nav{
+    height: 100px;
+}
