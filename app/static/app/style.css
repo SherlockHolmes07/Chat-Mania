@@ -1,6 +1,6 @@
 body{
-    background:  linear-gradient(to bottom, rgb(25, 24, 60)
-    , rgb(123, 116, 255)  );
+    background:  linear-gradient(to bottom, #0D0049
+    , #461EFF  );
     font-family: 'Open Sans', sans-serif;
     color: #fff;
     /*make height cover entire screen*/

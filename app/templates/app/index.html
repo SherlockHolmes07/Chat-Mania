@@ -40,13 +40,13 @@
                     {% if room in x %}
                         <button id="join-btn" class="btn btn-dark disable" disabled>Requested</button>
                     {% elif room in y %}
-                        <a id="join-btn" class="btn btn-primary">Go to Room</a>
+                        <a id="join-btn" href="{% url 'room' room.name %}" class="btn btn-primary">Go to Room</a>
                     {% else %}
                     <!--Assign room id to the button value of button-->
                     <button id="join-btn" class="btn btn-dark" value="{{room.id}}">Join</button>
                     {% endif %}
               {% else %}
-              <a id="join-btn" class="btn btn-primary">Go to Room</a>
+              <a id="join-btn" href="{% url 'room' room.name %}" class="btn btn-primary">Go to Room</a>
               {% endif %}
         </div>
         {% endfor %}
