@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(message);
         const roomId = document.getElementById('room_id').value;
         console.log(roomId);
+        const username = document.getElementById('user_name').value;
+        console.log(username);
 
         const csrftoken = getCookie('csrftoken'); // get the csrf token from the cookie
         // send a POST request to the server
@@ -18,8 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then((response) => {
             console.log(response);
-            if (response.status == 200) {
-            }
          })
          .catch((error) => console.log(error));
 

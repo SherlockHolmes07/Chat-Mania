@@ -248,5 +248,5 @@ def send_message(request):
             ssl=True
         )
 
-        pusher_client.trigger(room.name, 'my-event', message)
+        pusher_client.trigger(room.name, 'my-event', {'message': message, 'user': request.user.username})
         return HttpResponse("Message sent", status=200)
