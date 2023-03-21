@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from .models import User, Room, UserRooms, Message, JoinRequests
+import pusher
 # Create your views here.
 
 
@@ -226,3 +227,26 @@ def room(request, room_name):
             'room': room,
             'messages': messages
         })
+
+
+# Send Message
+@login_required(login_url="login")
+def send_message(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        message = data["message"]
+        room_id = data["roomId"]
+        room = Room.objects.get(id=room_id)
+        msg = Message.objects.create(user=request.user, room=room, message=message)
+        msg.save()
+        # Use pusher to send the message to the room
+        pusher_client = pusher.Pusher(
+            app_id='1565223',
+            key='bc1914d6eafb6813d9e9',
+            secret='3b281663a1ed82794093',
+            cluster='ap2',
+            ssl=True
+        )
+
+        pusher_client.trigger(room.name, 'my-event', message)
+        return HttpResponse("Message sent", status=200)

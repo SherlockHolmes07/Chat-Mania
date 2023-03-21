@@ -12,6 +12,9 @@
         <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
+     <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
@@ -24,6 +27,26 @@
        <!--import create.js-->
          <script src="{% static 'app/joinRoom.js' %}"></script>
          <script src="{% static 'app/request.js' %}"></script>
+         <script src="{% static 'app/message.js' %}"></script>
+
+         <script>
+
+          // Enable pusher logging - don't include this in production
+          Pusher.logToConsole = true;
+
+          var pusher = new Pusher('bc1914d6eafb6813d9e9', {
+            cluster: 'ap2'
+          });
+      
+          var channel = pusher.subscribe("{{room.name}}");
+          channel.bind('my-event', function(data) {
+            alert(JSON.stringify(data));
+          });
+      
+      
+        </script>
+
+
     </head>
     <body>
         <!--Navbar containing home button at the left and logout button at the right-->
@@ -158,10 +181,11 @@
               </div>
 
               <div class="form-group form-white mt-4" style="max-width: 800px;">
-                <textarea class="form-control" id="textAreaExample3" rows="4"></textarea>
+                <input type="hidden" value="{{ room.id }}" id="room_id">
+                <textarea class="form-control" id="text-message" rows="4"></textarea>
                 <label class="form-label" for="textAreaExample3">Message</label>
           </div>
-            <button type="button" class="btn btn-light btn-lg btn-rounded float-end">Send</button>
+            <button type="button" id="Send" class="btn btn-light btn-lg btn-rounded float-end">Send</button>
         
           
             </div>
@@ -169,6 +193,7 @@
        
 
     </body>
+
     
    
 </html>

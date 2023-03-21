@@ -17,4 +17,5 @@ urlpatterns = [
     path('joinRoom', views.join_room, name='join_room'),
     path('AcceptRequest', views.accept_request, name='accept_request'),
     path('RejectRequest', views.reject_request, name='reject_request'),
+    path('sendMessage', views.send_message, name="send_message")
 ]
