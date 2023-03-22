@@ -110,6 +110,7 @@ def create(request):
         if form.is_valid():
             name = form.cleaned_data["name"]
             description = form.cleaned_data["description"]
+            name = name.strip().replace(" ","_")
             # Create a new room
             room = Room(name=name, description=description, admin=request.user)
             room.save()

@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then((response) => {
             console.log(response);
+            document.getElementById('text-message').value = '';
          })
          .catch((error) => console.log(error));
 
