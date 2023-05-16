@@ -15,6 +15,7 @@ import pusher
 class CreateRoomForm(forms.Form):
     name = forms.CharField(label="Room Name", max_length=64, required=True, min_length=3,
     widget=forms.TextInput(attrs={'class': 'form-control mb-3', 'placeholder': 'Room Name'}))
+
     description = forms.CharField(label="Description", max_length=256,min_length=5, required=True, widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Description', 'rows': '5'}))
 
 # Index
@@ -222,7 +223,7 @@ def room(request, room_name):
         rooms = [x.room for x in user_rooms]
         print(rooms)
         if room not in rooms and room.admin != request.user:
-            return HttpResponse("You are not in this room", status=403)
+            return HttpResponse("<h1>You are not in this room</h1>", status=403)
         messages = Message.objects.filter(room=room)
         return render(request, 'app/room.html', {
             'room': room,

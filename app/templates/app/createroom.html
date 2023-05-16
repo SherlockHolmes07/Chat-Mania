@@ -27,7 +27,7 @@
  <div class="alert alert-danger mt-2" style="width: 50%; margin-left: 25%;" role="alert"> {{ message }}</div> 
  {% endif %}
 
-<div class="d-flex flex-row">
+<div class="d-flex" id="try">
   <!--Buttons for the page-->
   <div class="btn-Cont d-flex flex-column justify-content-around">
     <a id="lbtn" href="{% url 'create' %}" class="btn btn-success"
@@ -40,7 +40,7 @@
   </div>
 
   <!--Room Container-->
-  <div >
+  <div id="from" >
     <form action="{% url 'create' %}" method="post" class="form-control" id="create-form">
         {% csrf_token %}
        {{ CreateRoomForm }}
