@@ -109,13 +109,15 @@ def create(request):
         form = CreateRoomForm(request.POST)
         # Check if the form is valid
         if form.is_valid():
+            #Get from Data
             name = form.cleaned_data["name"]
             description = form.cleaned_data["description"]
+            # Strip the name of whitespaces and replace spaces with underscores
             name = name.strip().replace(" ","_")
             # Create a new room
             room = Room(name=name, description=description, admin=request.user)
             room.save()
-            # Add the user to the room
+            # Add the User-Rooms Mapping
             user_room = UserRooms(user=request.user, room=room)
             user_room.save()
             # Redirect to the index page
@@ -128,7 +130,8 @@ def create(request):
             })
     else:
         # If the request is GET
-        return render(request, 'app/createroom.html', { # Render the same page with the form data
+        return render(request, 'app/createroom.html', {
+            # Render the same page with the form data
             'CreateRoomForm': CreateRoomForm()
         })
     
@@ -170,17 +173,23 @@ def join_requests(request):
 @login_required(login_url="login")
 def accept_request(request):
     if request.method == "POST":
+        # Get the request id
         data = json.loads(request.body)
-        request_id = data["requestId"]     
+        request_id = data["requestId"]  
+        # Get the joinRequest Mapping   
         Request = JoinRequests.objects.get(id=request_id)
+        # Check if the user is the admin of the room
         if Request.admin.id != request.user.id:
             return HttpResponse("You are not the admin of this room", status=403)
         else:
+            # Add the user to the User-Rooms Mapping
             user_room = UserRooms(user=Request.user, room=Request.room)
             user_room.save()
+            # Increment the number of users in the room
             room = Room.objects.get(id=Request.room.id)
             room.numberUsers += 1
             room.save()
+            # Delete the user from the Join Requests Mapping
             Request.delete()
             return HttpResponse("Accepted request", status=200)
 
@@ -189,12 +198,16 @@ def accept_request(request):
 @login_required(login_url="login")
 def reject_request(request):
     if request.method == "POST":
+        # Get the request id
         data = json.loads(request.body)
         request_id = data["requestId"]
+        # Get the joinRequest Mapping
         Request = JoinRequests.objects.get(id=request_id)
+        # Check if the user is the admin of the room
         if Request.admin.id != request.user.id:
             return HttpResponse("You are not the admin of this room", status=403)
         else:
+            # Simply delete the user from the Join Requests Mapping
             Request.delete()
             return HttpResponse("Rejected request", status=200)
         
@@ -216,9 +229,11 @@ def room(request, room_name):
     if request.method == "POST":
         pass
     else:
+        # Get the room
         room = Room.objects.get(name=room_name)
 
-        # Check if the user is in the room
+        # Check if the user is in the room or not
+        # Apply filter to the User-Rooms Mapping
         user_rooms = UserRooms.objects.filter(user=request.user)
         rooms = [x.room for x in user_rooms]
         print(rooms)
@@ -235,10 +250,13 @@ def room(request, room_name):
 @login_required(login_url="login")
 def send_message(request):
     if request.method == "POST":
+        # Get the message and the room id
         data = json.loads(request.body)
         message = data["message"]
         room_id = data["roomId"]
+        # Get the room
         room = Room.objects.get(id=room_id)
+        # Create a new message
         msg = Message.objects.create(user=request.user, room=room, message=message)
         msg.save()
         # Use pusher to send the message to the room
@@ -249,6 +267,6 @@ def send_message(request):
             cluster='ap2',
             ssl=True
         )
-
+        # Trigger the event
         pusher_client.trigger(room.name, 'my-event', {'message': message, 'user': request.user.username})
         return HttpResponse("Message sent", status=200)
