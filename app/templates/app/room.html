@@ -28,9 +28,9 @@
          <script src="{% static 'app/joinRoom.js' %}"></script>
          <script src="{% static 'app/request.js' %}"></script>
          <script src="{% static 'app/message.js' %}"></script>
+         <script src="{% static 'app/sticky.js' %}"></script>
 
          <script>
-
           // Enable pusher logging - don't include this in production
           Pusher.logToConsole = true;
 
@@ -98,9 +98,8 @@
               <div class="row">
           
           
-                <div class="col-md-6 col-lg-7 col-xl-10" style="overflow-y: scroll !important;  height: 500px; !important; overflow-anchor: none;" >
-          
-                  <ul class="list-unstyled text-white d-flex flex-column" id="ul_cont">
+                <div class="col-md-6 col-lg-7 col-xl-10" >
+                  <ul class="list-unstyled text-white d-flex flex-column scrollable-container"  id="ul_cont">
 
                     {% for message in messages %}
                      {% if message.user == user %}
@@ -153,10 +152,6 @@
           
             </div>
           </section>
-       
-
+  
     </body>
-
-    
-   
 </html>

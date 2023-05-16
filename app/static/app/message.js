@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
     document.getElementById('Send').onclick = () => {
         const message = document.getElementById('text-message').value;
         console.log(message);
@@ -25,7 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
          .catch((error) => console.log(error));
 
     }
-
 })
 
 function getCookie(name) {
