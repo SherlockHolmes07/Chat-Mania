@@ -32,7 +32,7 @@
 
          <script>
           // Enable pusher logging - don't include this in production
-          Pusher.logToConsole = true;
+          Pusher.logToConsole = flase;
 
           var pusher = new Pusher('bc1914d6eafb6813d9e9', {
             cluster: 'ap2'
@@ -47,7 +47,7 @@
 
           channel.bind('my-event', function(data) {
             username = document.getElementById("user_name").value;
-            console.log(data.message);
+            //console.log(data.message);
  
             if(data.user === username) {
               document.getElementById('ul_cont').innerHTML += ` <li class="d-flex justify-content-between mb-4 float-right align-self-end">
@@ -85,8 +85,6 @@
             document.querySelector('ul#ul_cont').scrollTop = document.querySelector('ul#ul_cont').scrollHeight;
           });
 
-
-      
         </script>
 
 
@@ -154,12 +152,11 @@
                 <textarea class="form-control" id="text-message" rows="4"></textarea>
                 <label class="form-label" for="text-message">Message</label>
               </div>
-            <button type="button" id="Send" class="btn btn-light btn-lg btn-rounded float-end" onclick="scrollToLastItem()">Send</button>
+            <button type="button" id="Send" class="btn btn-light btn-lg btn-rounded float-end">Send</button>
         
           
             </div>
           </section>
-
   
     </body>
 </html>
