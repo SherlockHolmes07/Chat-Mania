@@ -6,7 +6,9 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(roomId);
         const username = document.getElementById('user_name').value;
         console.log(username);
-
+        // clear the input field
+        document.getElementById('text-message').value = '';
+        
         const csrftoken = getCookie('csrftoken'); // get the csrf token from the cookie
         // send a POST request to the server
         fetch('/sendMessage', {
@@ -19,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then((response) => {
             console.log(response);
-            document.getElementById('text-message').value = '';
          })
          .catch((error) => console.log(error));
 

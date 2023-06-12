@@ -1,7 +1,7 @@
 {% extends "app/layout.html" %}
 
 {% block body %}
-<div style="text-align: center; margin-top: 35px;  max-width: 380px; height: auto;  margin-left: auto; margin-right: auto; padding: 30px; border-radius: 5px; background-color: #748B76">
+<div style="text-align: center; margin-top: 135px;  max-width: 380px; height: auto;  margin-left: auto; margin-right: auto; padding: 30px; border-radius: 5px; background-color: #3d518c">
     <h2>Register</h2>
 
     {% if message %}
@@ -22,9 +22,9 @@
         <div class="form-group">
             <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
         </div>
-        <input class="btn btn-primary" type="submit" value="Register">
+        <input class="btn btn-primary  mt-3 mb-2" type="submit" value="Register">
     </form>
 
-    Already have an account? <a href="{% url 'login' %}">Log In here.</a>
+    Already have an account? <a class="mt-4"  href="{% url 'login' %}"  style="color: #6CC551;">Log In here.</a>
 </div>
 {% endblock %}
